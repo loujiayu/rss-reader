@@ -1,0 +1,77 @@
+.entry {
+  flex: 6.5;
+  width: 65%;
+  position: relative;
+  overflow: scroll;
+  background-color: rgb(238, 237, 228);
+  .contents,
+  .header {
+    height: inherit;
+    width: inherit;
+    padding: 0 4em;
+    img {
+      max-width: 100%;
+    }
+  }
+  .fadeInDown {
+    animation-name: fadeInDown;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+  }
+  .fadeInUp {
+    animation-name: fadeInUp;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+  }
+  .ske {
+    height: 30px;
+    visibility: hidden;
+  }
+  .floatingBar {
+    position: fixed;
+    height: 30px;
+    top: 0;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    width: 65%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(238, 237, 228);
+    padding: 0 2em;
+    .toolCollect {
+      flex-basis: 8em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        flex: 1;
+      }
+    }
+  }
+}
+
+
+// animate
+
+@keyframes fadeInDown {
+  from {
+    // opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    // opacity: 1;
+    transform: translate3d(0, 0, 0);
+    // flex-basis: 50px;
+  }
+}
+@keyframes fadeInUp {
+  from {
+    // opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    // opacity: 0;
+    transform: translate3d(0, -100%, 0);
+    // flex-basis: 0px;
+  }
+}

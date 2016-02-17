@@ -1,0 +1,91 @@
+.searchPanel {
+  width: 70%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  background-color: rgb(153, 173, 193);
+  overflow: scroll;
+  position: absolute;
+  .tab {
+    position: fixed;
+    height: 58px;
+    width: 40px;
+    top: 0;
+    right: 100%;
+    background-color: white;
+    cursor: pointer;
+  }
+  .searchContent{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    li {
+      padding: 1em;
+      width: 20em;
+      list-style: none;
+      .subscribe {
+        float: right;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity .3s;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+// animation
+
+.bounceIn {
+  animation-name: bounceInRight;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes bounceInRight {
+  from, 60%, 75%, 90%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  from {
+    opacity: 0;
+    transform: translate3d(3000px, 0, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(-25px, 0, 0);
+  }
+
+  75% {
+    transform: translate3d(10px, 0, 0);
+  }
+
+  90% {
+    transform: translate3d(-5px, 0, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes bounceOutRight {
+  20% {
+    opacity: 1;
+    transform: translate3d(-20px, 0, 0);
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(2000px, 0, 0);
+  }
+}
+
+.bounceOut {
+  animation-name: bounceOutRight;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+}

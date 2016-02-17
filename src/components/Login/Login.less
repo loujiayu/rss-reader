@@ -1,0 +1,139 @@
+.dialog {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .5);
+  overflow: scroll;
+}
+.flipper {
+  transform-style: preserve-3d;
+  height: 400px;
+  width: 300px;
+  position: relative;
+  border-radius: 5px;
+  border: 0;
+  transition-property: transform;
+  transition-duration: .5s;
+  background-color: white;
+  background-image: radial-gradient(ellipse at center, #ffffff 59%, #e5e5e5 100%);
+}
+.login,
+.register {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  backface-visibility: hidden;
+  .dialogForm {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .dialogHeader {
+      flex: 1;
+      padding: 1em;
+      h3 {
+        text-align: center;
+      }
+    }
+    .dialogInput {
+      flex: 1;
+      padding: 0 1em;
+      input {
+        background-color: transparent;
+        letter-spacing: .1em;
+        text-align: left;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        outline: none;
+        border-bottom: 1px solid black;
+      }
+    }
+    .switch {
+      flex: 1;
+      padding: 0 1em;
+      em {
+        cursor: pointer;
+        color: #446cb3;
+      }
+    }
+    .continue {
+      flex:1;
+      padding: 1em 0;
+      button {
+        border: none;
+        border-radius: 0;
+        outline: none;
+        height: 40px;
+        background-color: #446cb3;
+        color: white;
+        font-weight: 300;
+        transition:background-color .5s;
+        &:hover {
+          background-color: #235cc1;
+        }
+      }
+    }
+  }
+}
+
+.register {
+  // transform: rotateY(180deg) translate(-50%, -50%);
+  transform: rotateY(-180deg);
+}
+
+.login {
+  // transform: rotateY(0deg);
+  // transform: rotateY(0deg) translate(-50%, -50%);
+  z-index: 2;
+}
+
+.passwordError {
+  flex: 1;
+  padding: 1em;
+  color: red;
+  text-align: center;
+}
+
+.notShow {
+  display: none;
+}
+
+// animate
+
+.bounceIn {
+  animation-name: bounceIn;
+  animation-duration: .5s;
+  // animation-fill-mode: both;
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  30% {
+    opacity: 0.3;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  70% {
+    opacity: 0.7;
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
