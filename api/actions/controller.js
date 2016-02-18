@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Feed = mongoose.model('Feed');
 var User = mongoose.model('User')
-import {getNewFeeds, fetchDataUrl} from '../utils/refresh.js';
+import {getNewFeeds, feedsRefresh} from '../utils/fetch.js';
 
 export function subscribe(req) {
   const {name, rss} = req.body
@@ -13,17 +13,41 @@ export function subscribe(req) {
       if(newFeeds.length === 0) {
         Feed.create({nm: name, fId: feedId, fnm: title})
       }
-      User.update({nm: name}, {$push: {fs:{f:title,ct: newFeeds.length}}},(err, fb) => {
+      User.update({nm: name}, {$push: {fs:{f:title,ct: newFeeds.length, fr: feedId}}},(err, fb) => {
         console.log(err)
         console.log(fb)
       })
       newFeeds.forEach((feed, index) => {
         let target = {}
-        Object.assign(target, {nm: name, fId: feedId, fnm: title}, feed)
+        Object.assign(target, {nm: name}, feed)
         Feed.create(target)
       })
     })
   })
+}
+
+export async function refresh(req) {
+  const {name} = req.query
+  var results = await feedsRefresh(name)
+  const {feeds, ct} = results
+  console.log(ct);
+  for(let [key, val] of Object.entries(ct)){
+    await User.update({nm:name, "fs.f":key}, {$inc:{"fs.$.ct":val}}).exec()
+  }
+  var profile = await User.findOne({nm:name}).exec()
+  var promises = feeds.map((feed,index) => {
+    let target = {}
+    Object.assign(target, {nm: name}, feed)
+    Feed.create(target)
+  })
+  // Promise.all(promises)
+  console.log(`feeds ${feeds.length}`);
+  // feeds.forEach((feed, index) => {
+  //   let target = {}
+  //   Object.assign(target, {nm: name}, feed)
+  //   Feed.create(target)
+  // })
+  return profile.js
 }
 
 export async function mark(req) {
@@ -41,7 +65,7 @@ export function feedlist(req) {
   const {name} = req.query
   return new Promise((resolve, reject) => {
     User.findOne({nm:name}, (err, profile) => {
-      console.log(profile);
+      console.log(profile)
       resolve(profile.fs)
     })
   })

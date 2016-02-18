@@ -4,7 +4,6 @@ require('babel/polyfill');
 var fs = require('fs');
 var path = require('path');
 var webpack = require('webpack');
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
 var assetsPath = path.resolve(__dirname, '../static/dist');
 var host = (process.env.HOST || 'localhost');

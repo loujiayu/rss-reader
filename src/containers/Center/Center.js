@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux'
 import {search, loadContent, stream} from 'redux/modules/feedly';
-import {getFeeds, getContent, markReaded ,contentSelect} from 'redux/modules/manage'
+import {getFeeds, getContent, refresh ,markReaded ,contentSelect} from 'redux/modules/manage'
 import {select, changeState, drop} from 'redux/modules/stat'
 import {SearchPanel, ContentPenal} from 'components'
 import request from 'superagent'
@@ -16,7 +16,7 @@ import request from 'superagent'
                     status: state.stat.status,
                     entryIndex:state.manage.entryIndex}),
                     {select, getFeeds, search,stream, getContent,
-                      markReaded, changeState, contentSelect})
+                      markReaded, changeState, contentSelect, refresh})
 export default class Home extends Component {
   constructor() {
     super()
@@ -44,7 +44,7 @@ export default class Home extends Component {
     this.props.changeState(event.target.dataset.type)
   }
   handleRefresh = (event) => {
-    this.props.getFeeds(this.props.user)
+    this.props.refresh(this.props.user)
   }
   loadContent = (title, index) => {
     this.props.getContent(this.props.user, title, index)

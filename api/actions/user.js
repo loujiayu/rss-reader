@@ -13,8 +13,10 @@ export function login(req) {
       if(err) {
         reject(err)
       } else {
+        console.log(name);
         if(profile.pw === password) {
           req.session.user = name
+          console.log(name);
           resolve(name)
         } else {
           reject('wrong password')

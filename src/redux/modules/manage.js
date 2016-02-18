@@ -14,6 +14,9 @@ const CONSELECTED = 'CONSELECTED'
 const STAR = 'STAR'
 const STAR_SUCCESS = 'STAR_SUCCESS'
 const STAR_FAIL = 'STAR_FAIL'
+const REFRESH = 'REFRESH'
+const REFRESH_SUCCESS = 'REFRESH_SUCCESS'
+const REFRESH_FAIL = 'REFRESH_FAIL'
 
 const initialState = {
   fetch: false,
@@ -134,6 +137,17 @@ export function markReaded(name, id) {
       params: {
         name: name,
         index: id
+      }
+    })
+  }
+}
+
+export function refresh(username) {
+  return {
+    types: [REFRESH, REFRESH_SUCCESS, REFRESH_FAIL],
+    promise: (client) => client.post('/refresh', {
+      params: {
+        name: username
       }
     })
   }

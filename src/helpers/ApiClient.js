@@ -1,23 +1,16 @@
-import superagent from 'superagent'
+import superagent from 'superagent';
+import config from '../config';
 
-import config from '../config'
-
-const methods = ['get', 'post', 'put', 'patch', 'del']
-
-// if(__DEVELOPMENT__) {
-//   var mock = require('superagent-mock')
-//   var mockConfig = require('./mock.config.js')
-//   mock(superagent, mockConfig)
-// }
+const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 function formatUrl(path) {
-  const adjustedPath = path[0] !== '/' ? '/' + path : path
+  const adjustedPath = path[0] !== '/' ? '/' + path : path;
   if (__SERVER__) {
     // Prepend host and port of the API server to the path.
-    return 'http://' + config.apiHost + ':' + config.apiPort + adjustedPath
+    return 'http://' + config.apiHost + ':' + config.apiPort + adjustedPath;
   }
   // Prepend `/api` to relative URL, to proxy to API server.
-  return '/api' + adjustedPath
+  return '/api' + adjustedPath;
 }
 
 /*
@@ -29,26 +22,26 @@ function formatUrl(path) {
 class _ApiClient {
   constructor(req) {
     methods.forEach((method) =>
-      this[method] = (path, { params, data, auth } = {}) => new Promise((resolve, reject) => {
-        const request = superagent[method](formatUrl(path))
+      this[method] = (path, { params, data } = {}) => new Promise((resolve, reject) => {
+        const request = superagent[method](formatUrl(path));
 
         if (params) {
-          request.query(params)
+          request.query(params);
         }
 
         if (__SERVER__ && req.get('cookie')) {
-          request.set('cookie', req.get('cookie'))
+          request.set('cookie', req.get('cookie'));
         }
 
         if (data) {
-          request.send(data)
+          request.send(data);
         }
 
-        request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body))
-      }))
+        request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
+      }));
   }
 }
 
-const ApiClient = _ApiClient
+const ApiClient = _ApiClient;
 
-export default ApiClient
+export default ApiClient;

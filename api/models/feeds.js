@@ -4,6 +4,11 @@ var Schema = mongoose.Schema
 // fId, con, pub, oId
 // nm, pw, tt, fnm
 var feedSchema = new Schema({
+  _id:{
+    type:String,
+    require: true,
+    index:true
+  },
   nm:{
     type:String,
     require: true,

@@ -11,7 +11,7 @@ import apiConfig from '../src/config';
 
 if(process.env.NODE_ENV === 'production') {
   app.enable('trust proxy');
-  app.use(require('express-enforces-ssl')());
+  // app.use(require('express-enforces-ssl')());
 }
 
 app.config = config;

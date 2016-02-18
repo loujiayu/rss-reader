@@ -2,22 +2,24 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap';
 import {Login} from 'components'
-import { pushState } from 'redux-router';
+// import { pushState } from 'redux-router';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
-import connectData from 'helpers/connectData';
+import { routeActions } from 'react-router-redux';
+import { asyncConnect } from 'redux-async-connect';
 
-function fetchData(getState, dispatch) {
-  const promises = [];
-  // if (!isInfoLoaded(getState())) {
-  //   promises.push(dispatch(loadInfo()));
-  // }
-  if (!isAuthLoaded(getState())) {
-    promises.push(dispatch(loadAuth()));
+@asyncConnect([{
+  promise: ({store: {dispatch, getState}}) => {
+    const promises = [];
+
+    if (!isAuthLoaded(getState())) {
+      promises.push(dispatch(loadAuth()));
+    }
+
+    return Promise.all(promises);
   }
-  return Promise.all(promises);
-}
-@connectData(fetchData)
-@connect(state => ({user: state.auth.user}),{logout, pushState})
+}])
+@connect(state => ({user: state.auth.user}),
+        {logout, pushState: routeActions.push})
 export default class App extends Component {
   constructor() {
     super()
@@ -34,10 +36,10 @@ export default class App extends Component {
   componentWillReceiveProps(nextProps) {
     if (!this.props.user && nextProps.user) {
       // login
-      this.props.pushState(null, '/loginSuccess');
+      this.props.pushState('/loginSuccess');
     } else if (this.props.user && !nextProps.user) {
       // logout
-      this.props.pushState(null, '/');
+      this.props.pushState('/');
     }
   }
   // handleSubmit = (event) => {
