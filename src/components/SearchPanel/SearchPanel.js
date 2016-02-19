@@ -43,12 +43,15 @@ export default class SearchPanel extends Component {
       <div className={panelStyle}>
         <div>
           <ul className={styles.searchContent}>
-            {!data ? null : data.results.map((item, index) => {
+            {loading && <div className={styles.loading}>LOADING</div>}
+            {loaded&&!data ? null : data.results.map((item, index) => {
               return (
                 <li key={`searchList.${index}`}>
-                  <h4>{item.title}
-                    <span className={styles.subscribe + " fa fa-plus"}
-                          onClick={this.handleSubscribe.bind(this, item)}></span></h4>
+                  <a href={item.website} target="_blank">
+                    <h4><img src={`https://www.google.com/s2/favicons?domain=${item.website}&alt=feed`} />{item.title}
+                      <span className={styles.subscribe + " fa fa-plus"}
+                            onClick={this.handleSubscribe.bind(this, item)}></span></h4>
+                  </a>
                   <p>{item.description}</p>
                 </li>
               )

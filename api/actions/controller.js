@@ -6,6 +6,7 @@ import {getNewFeeds, feedsRefresh} from '../utils/fetch.js';
 export function subscribe(req) {
   const {name, rss} = req.body
   const {feedId, title, website} = rss
+  var icon = `https://www.google.com/s2/favicons?domain=${website}&alt=feed`
   return new Promise((resolve, reject) => {
     getNewFeeds(feedId).then((newFeeds) => {
       resolve(title)
@@ -13,7 +14,7 @@ export function subscribe(req) {
       if(newFeeds.length === 0) {
         Feed.create({nm: name, fId: feedId, fnm: title})
       }
-      User.update({nm: name}, {$push: {fs:{f:title,ct: newFeeds.length, fr: feedId}}},(err, fb) => {
+      User.update({nm: name}, {$push: {fs:{f:title,ct: newFeeds.length, fr: feedId, ic:icon}}},(err, fb) => {
         console.log(err)
         console.log(fb)
       })

@@ -23,12 +23,14 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loaded: true,
+        loading: false,
         data: action.result
       }
     case SEARCH:
       return {
         ...state,
-        loading: true
+        loading: true,
+        loaded: false
       }
     case CLOSE:
       return {

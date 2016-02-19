@@ -3,26 +3,39 @@
   height: 100%;
   top: 0;
   right: 0;
-  background-color: rgb(153, 173, 193);
+  background-color: white;
   overflow: scroll;
   position: absolute;
-  .tab {
-    position: fixed;
-    height: 58px;
-    width: 40px;
-    top: 0;
-    right: 100%;
-    background-color: white;
-    cursor: pointer;
-  }
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   .searchContent{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    .loading {
+      text-shadow: 0 0 6px #bce4ff;
+    }
     li {
+      animation-name: appear;
+      animation-duration: .5s;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-in;
+
+      height: 9.3em;
+      display: inline-block;
       padding: 1em;
       width: 20em;
       list-style: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      a {
+        transition-property: color;
+        transition-duration: .3s;
+        color: rgba(75, 75, 75,0.8);
+        img {
+          margin-right: 1em;
+          height: 1.3em;
+        }
+        &:hover {
+          color: black;
+        }
+      }
       .subscribe {
         float: right;
         cursor: pointer;
@@ -32,8 +45,24 @@
           opacity: 1;
         }
       }
+      &:hover {
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      }
     }
   }
+}
+
+
+
+.loading::after {
+  content: '';
+  background: #65686a;
+  display: inline-block;
+  margin-left: 1em;
+  height: 20px;
+  width: 16px;
+  box-shadow: 0 0 15px #bce4ff;
+  animation: blink .5s infinite;
 }
 
 // animation
@@ -42,40 +71,41 @@
   animation-name: bounceInRight;
   animation-duration: .5s;
   animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
 }
 
-@-webkit-keyframes bounceInRight {
-  from, 60%, 75%, 90%, to {
-    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  }
+.bounceOut {
+  animation-name: bounceOutRight;
+  animation-duration: .5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
 
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceInRight {
   from {
     opacity: 0;
     transform: translate3d(3000px, 0, 0);
   }
 
-  60% {
-    opacity: 1;
-    transform: translate3d(-25px, 0, 0);
-  }
-
-  75% {
-    transform: translate3d(10px, 0, 0);
-  }
-
-  90% {
-    transform: translate3d(-5px, 0, 0);
-  }
-
   to {
-    transform: none;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes bounceOutRight {
-  20% {
+  from {
     opacity: 1;
-    transform: translate3d(-20px, 0, 0);
+    transform: translate3d(0, 0, 0);
   }
   to {
     opacity: 0;
@@ -83,9 +113,11 @@
     transform: translate3d(2000px, 0, 0);
   }
 }
-
-.bounceOut {
-  animation-name: bounceOutRight;
-  animation-duration: .5s;
-  animation-fill-mode: forwards;
+@keyframes appear {
+  from {
+    filter: blur(50px);
+  }
+  to {
+    filter: blur(0);
+  }
 }
