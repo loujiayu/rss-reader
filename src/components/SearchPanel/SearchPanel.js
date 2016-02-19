@@ -7,6 +7,7 @@ import {subscribe} from 'redux/modules/manage'
 @connect(state => ({data: state.feedly.data,
                     loading: state.feedly.loading,
                     loaded: state.feedly.loaded,
+                    closed: state.feedly.closed,
                     user: state.auth.user}), {closePanel, subscribe})
 export default class SearchPanel extends Component {
   static propTypes = {
@@ -21,7 +22,7 @@ export default class SearchPanel extends Component {
   }
   handleDocumentClick = (event) => {
     var domNode = ReactDom.findDOMNode(this)
-    if(!domNode.contains(event.target) && this.props.loading) {
+    if(!domNode.contains(event.target) && (this.props.loaded||this.props.loading)) {
       this.closeTab()
     }
   }
@@ -35,29 +36,34 @@ export default class SearchPanel extends Component {
   }
   render() {
     const styles = require('./SearchPanel.less')
-    const {data, loading, loaded} = this.props
-    const panelStyle = loading ? styles.searchPanel + ' ' + styles.bounceIn :
-                                 styles.searchPanel + ' ' + styles.bounceOut
+    const {data, loading, loaded, closed} = this.props
+    var panelStyle
+    if(loading || loaded) {
+      panelStyle = styles.searchPanel + ' ' + styles.bounceIn
+    } else {
+      panelStyle = styles.untrigger
+    }
+    if(closed) {
+      panelStyle = styles.searchPanel + ' ' + styles.bounceOut
+    }
     console.log(data)
     return (
       <div className={panelStyle}>
-        <div>
-          <ul className={styles.searchContent}>
-            {loading && <div className={styles.loading}>LOADING</div>}
-            {loaded&&!data ? null : data.results.map((item, index) => {
-              return (
-                <li key={`searchList.${index}`}>
-                  <a href={item.website} target="_blank">
-                    <h4><img src={`https://www.google.com/s2/favicons?domain=${item.website}&alt=feed`} />{item.title}
-                      <span className={styles.subscribe + " fa fa-plus"}
-                            onClick={this.handleSubscribe.bind(this, item)}></span></h4>
-                  </a>
-                  <p>{item.description}</p>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+        <ul className={styles.searchContent}>
+          {loading && <div className={styles.loading}>LOADING</div>}
+          {loaded && data.results.map((item, index) => {
+            return (
+              <li key={`searchList.${index}`}>
+                <a href={item.website} target="_blank">
+                  <h4><img src={`https://www.google.com/s2/favicons?domain=${item.website}&alt=feed`} />{item.title}
+                    <span className={styles.subscribe + " fa fa-plus"}
+                          onClick={this.handleSubscribe.bind(this, item)}></span></h4>
+                </a>
+                <p>{item.description}</p>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     )
   }

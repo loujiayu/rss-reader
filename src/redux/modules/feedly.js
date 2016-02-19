@@ -8,7 +8,8 @@ const STREAM_SUCCESS = 'STREAM_SUCCESS'
 
 const initialState = {
   loaded: false,
-  loading: false
+  loading: false,
+  closed: false
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -17,25 +18,30 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         search: false,
-        loading: false
+        loading: false,
+        closed: false
       }
     case SEARCH_SUCCESS:
       return {
         ...state,
         loaded: true,
         loading: false,
+        closed: false,
         data: action.result
       }
     case SEARCH:
       return {
         ...state,
         loading: true,
-        loaded: false
+        loaded: false,
+        closed: false
       }
     case CLOSE:
       return {
         ...state,
-        loading: false
+        closed: true,
+        loading: false,
+        loaded: false
       }
     case STREAM:
       return {

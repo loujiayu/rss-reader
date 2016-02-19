@@ -21,7 +21,8 @@ const REFRESH_FAIL = 'REFRESH_FAIL'
 const initialState = {
   fetch: false,
   selected: '',
-  entryIndex: -1
+  entryIndex: -1,
+  refreshing: false
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -88,6 +89,18 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         entryIndex: action.entryIndex
+      }
+    case REFRESH:
+      return {
+        ...state,
+        refreshing: true,
+        refreshed: false
+      }
+    case REFRESH_SUCCESS:
+      return {
+        ...state,
+        refreshing: false,
+        refreshed: true
       }
     default:
       return state

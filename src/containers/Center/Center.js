@@ -14,15 +14,15 @@ import request from 'superagent'
                     contents: state.manage.contents,
                     selected: state.manage.selected,
                     status: state.stat.status,
-                    entryIndex:state.manage.entryIndex}),
+                    entryIndex:state.manage.entryIndex,
+                    refreshing: state.manage.refreshing}),
                     {select, getFeeds, search,stream, getContent,
                       markReaded, changeState, contentSelect, refresh})
 export default class Home extends Component {
   constructor() {
     super()
     this.state = {
-      feedState:'',
-      init: false
+      feedState:''
     }
   }
   static propTypes = {
@@ -37,7 +37,6 @@ export default class Home extends Component {
     event.preventDefault()
     const input = this.refs.search
     this.props.search(input.value)
-    this.setState({init: true})
     input.value = ''
   }
   handleFeedState = (event) => {
@@ -62,19 +61,11 @@ export default class Home extends Component {
     // this.props.markReaded(this.props.user, title)
     // this.props.drop(false)
   }
-  handleMouseDown = (event) => {
-    // var domNode = this.refs.feedList
-    // var refreshing = this.refs.refreshing
-  }
-  handleMouseUp = (event) => {
 
-  }
-  handleMouseMove = (event) => {
-
-  }
   render() {
     const styles = require('./Center.less')
-    const {loading, user, contents, list, addone, selected, status, coor, entryIndex} = this.props
+    const {loading, user, contents, list, addone, selected, status, coor, entryIndex, refreshing} = this.props
+    const refreshStyle = refreshing ? "fa fa-refresh fa-spin" : "fa fa-refresh"
     return (
       <div className={styles.feedcenter}>
         <div className={styles.feeds}>
@@ -83,10 +74,7 @@ export default class Home extends Component {
               <input type='text' ref="search" placeholder="search"/>
             </form>
           </div>
-          <div className={styles.feedList} ref="feedList"
-               onMouseDown={this.handleMouseDown}
-               onMouseUp={this.handleMouseUp}
-               onMouseMove={this.handleMouseMove}>
+          <div className={styles.feedList} ref="feedList">
             <div className={styles.feedTab}>
               <ul>
                 {list && list.map((item, index) => {
@@ -166,7 +154,7 @@ export default class Home extends Component {
           </div>
         </div>
         <ContentPenal/>
-        {this.state.init && <SearchPanel />}
+        <SearchPanel />
       </div>
 
     )
