@@ -57,13 +57,14 @@ export default class SearchPanel extends Component {
           {loaded && data.results.map((item, index) => {
             return (
               <li key={`searchList.${index}`}>
-                <img src={`https://www.google.com/s2/favicons?domain=${item.website}&alt=feed`} />
-                <a href={item.website} target="_blank">
-                  <h4>{item.title}</h4>
-                </a>
-                <span className={styles.subscribe + " fa fa-plus"}
-                        onClick={this.handleSubscribe.bind(this, item)}></span>
-
+                <div className={styles.icon}>
+                  <a className={styles.feedOrigin} href={item.website} target="_blank">
+                    <img className={styles.feedicon} src={`https://www.google.com/s2/favicons?domain=${item.website}&alt=feed`} />
+                    <h4 className={styles.feedname}>{item.title}</h4>
+                  </a>
+                  <span className={styles.subscribe + " fa fa-plus"}
+                          onClick={this.handleSubscribe.bind(this, item)}></span>
+                </div>
                 <p>{item.description}</p>
               </li>
             )

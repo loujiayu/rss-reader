@@ -30,28 +30,36 @@
       list-style: none;
       overflow: hidden;
       text-overflow: ellipsis;
-      a {
-        display: inline-block;
-        transition-property: color;
-        transition-duration: .3s;
-        color: rgba(75, 75, 75,0.8);
-        text-decoration: none;
-        h4:hover {
-          color: black;
+      .icon {
+        display: block;
+        height: 40px;
+        .feedOrigin {
+          float: left;
+          transition-property: color;
+          transition-duration: .3s;
+          color: rgba(75, 75, 75,0.8);
+          text-decoration: none;
+          &:hover {
+            color: black;
+          }
+          .feedicon {
+            display: inline-block;
+            margin-right: 1em;
+            height: 1.6em;
+          }
+          .feedname {
+            display: inline-block;
+          }
         }
-      }
-      img {
-        display: inline-block;
-        margin-right: 1em;
-        height: 1.6em;
-      }
-      .subscribe {
-        float: right;
-        cursor: pointer;
-        opacity: 0.5;
-        transition: opacity .3s;
-        &:hover {
-          opacity: 1;
+        .subscribe {
+          float: right;
+          cursor: pointer;
+          opacity: 0.5;
+          transition: opacity .3s;
+          line-height: 40px;
+          &:hover {
+            opacity: 1;
+          }
         }
       }
 
