@@ -155,6 +155,18 @@ export function markReaded(name, id) {
   }
 }
 
+export function markAllReaded(name, title) {
+  return {
+    types: [MARKREAD, MARKREAD_SUCCESS, MARKREAD_FAIL],
+    promise: (client) => client.post('/markall', {
+      params: {
+        name: name,
+        title:title
+      }
+    })
+  }
+}
+
 export function refresh(username) {
   return {
     types: [REFRESH, REFRESH_SUCCESS, REFRESH_FAIL],

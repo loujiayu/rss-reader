@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux'
 import {search, loadContent, stream} from 'redux/modules/feedly';
-import {getFeeds, getContent, refresh ,markReaded ,contentSelect} from 'redux/modules/manage'
+import {getFeeds, getContent, refresh ,markReaded, markAllReaded ,contentSelect} from 'redux/modules/manage'
 import {select, changeState, drop} from 'redux/modules/stat'
 import {SearchPanel, ContentPenal} from 'components'
 import request from 'superagent'
@@ -17,7 +17,7 @@ import request from 'superagent'
                     entryIndex:state.manage.entryIndex,
                     refreshing: state.manage.refreshing}),
                     {select, getFeeds, search,stream, getContent,
-                      markReaded, changeState, contentSelect, refresh})
+                      markReaded, changeState, markAllReaded, contentSelect, refresh})
 export default class Home extends Component {
   constructor() {
     super()
@@ -58,8 +58,10 @@ export default class Home extends Component {
     }
   }
   handleMark = (title, event) => {
-    // this.props.markReaded(this.props.user, title)
-    // this.props.drop(false)
+    this.props.markAllReaded(this.props.user, title)
+    this.contents.map((item) => {
+      item.rd = true
+    })
   }
 
   render() {
@@ -133,10 +135,10 @@ export default class Home extends Component {
                 var timeString = time.toLocaleTimeString()
                 var dateString = time.toLocaleDateString()
                 var readMark = item.rd ? styles.readMark : ''
-                var selected = entryIndex === index ? styles.reading : ''
+                var target = entryIndex === index ? styles.reading : ''
                 return (
                   <li key={`item.${index}`} onClick={this.readContent.bind(this, item._id, index)}
-                        className={`${readMark} ${selected}`}>
+                        className={`${readMark} ${target}`}>
                     <div className={styles.timestamp}>
                       <span>{dateString}</span>
                       <span>{timeString}</span>

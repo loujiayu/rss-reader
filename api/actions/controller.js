@@ -41,14 +41,15 @@ export async function refresh(req) {
     Object.assign(target, {nm: name}, feed)
     Feed.create(target)
   })
-  // Promise.all(promises)
-  console.log(`feeds ${feeds.length}`);
-  // feeds.forEach((feed, index) => {
-  //   let target = {}
-  //   Object.assign(target, {nm: name}, feed)
-  //   Feed.create(target)
-  // })
   return profile.js
+}
+
+export async function markall(req) {
+  const {name, title} = req.query
+  await User.update({nm:name, "fs.f":title}, {$set:{"fs.$.ct":0}}).exec()
+  var profile = await User.findOne({nm:name}).exec()
+  Feed.update({nm:name, fnm:title}, {$set:{rd: true}}, {multi:true}).exec()
+  return profile.fs
 }
 
 export async function mark(req) {

@@ -20,6 +20,9 @@ export default class SearchPanel extends Component {
   componentDidMount () {
     document.addEventListener('click', this.handleDocumentClick)
   }
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClick)
+  }
   handleDocumentClick = (event) => {
     var domNode = ReactDom.findDOMNode(this)
     if(!domNode.contains(event.target) && (this.props.loaded||this.props.loading)) {
@@ -54,11 +57,13 @@ export default class SearchPanel extends Component {
           {loaded && data.results.map((item, index) => {
             return (
               <li key={`searchList.${index}`}>
+                <img src={`https://www.google.com/s2/favicons?domain=${item.website}&alt=feed`} />
                 <a href={item.website} target="_blank">
-                  <h4><img src={`https://www.google.com/s2/favicons?domain=${item.website}&alt=feed`} />{item.title}
-                    <span className={styles.subscribe + " fa fa-plus"}
-                          onClick={this.handleSubscribe.bind(this, item)}></span></h4>
+                  <h4>{item.title}</h4>
                 </a>
+                <span className={styles.subscribe + " fa fa-plus"}
+                        onClick={this.handleSubscribe.bind(this, item)}></span>
+
                 <p>{item.description}</p>
               </li>
             )
