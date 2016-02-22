@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap';
 import {Login} from 'components'
-// import { pushState } from 'redux-router';
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
 import { routeActions } from 'react-router-redux';
 import { asyncConnect } from 'redux-async-connect';
@@ -10,11 +9,9 @@ import { asyncConnect } from 'redux-async-connect';
 @asyncConnect([{
   promise: ({store: {dispatch, getState}}) => {
     const promises = [];
-
     if (!isAuthLoaded(getState())) {
       promises.push(dispatch(loadAuth()));
     }
-
     return Promise.all(promises);
   }
 }])
@@ -28,7 +25,7 @@ export default class App extends Component {
     }
   }
   static propTypes = {
-    // user: PropTypes.object,
+    user: PropTypes.string,
     logout: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired
     // logout: PropTypes.func
@@ -42,19 +39,13 @@ export default class App extends Component {
       this.props.pushState('/');
     }
   }
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const input = this.refs.username;
-  //   this.props.login(input.value);
-  //   input.value = '';
-  // }
   handleLogin = (event) => {
     event.preventDefault()
     this.setState({show:true})
   }
 
   render() {
-    const styles = require('./New.less')
+    const styles = require('./App.less')
       // var showStyle = this.state.show ? styles.login : styles.normal
     var showStyle = styles.login
     var login = true

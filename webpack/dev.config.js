@@ -51,6 +51,8 @@ module.exports = {
   entry: {
     'main': [
       'bootstrap-sass!./src/theme/bootstrap.config.js',
+      'webpack-dev-server/client?http://localhost:3001',
+      'webpack/hot/only-dev-server',
       'font-awesome-webpack!./src/theme/font-awesome.config.js',
       './src/client.js'
     ]
@@ -76,7 +78,7 @@ module.exports = {
       { test: webpackIsomorphicToolsPlugin.regular_expression('images'), loader: 'url-loader?limit=10240' }
     ]
   },
-  progress: true,
+  // progress: true,
   resolve: {
     modulesDirectories: [
       'src',

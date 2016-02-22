@@ -13,6 +13,10 @@ export default class ContentPenal extends Component {
       lastScrollTop: 0
     }
   }
+  static propTypes = {
+    entryIndex: PropTypes.number,
+    contents: PropTypes.object
+  }
   handleScroll = (event) => {
     var st = event.target.scrollTop
     if(st > this.state.lastScrollTop) {
@@ -38,7 +42,7 @@ export default class ContentPenal extends Component {
     }
     return (
       <div className={styles.entry} onScroll={this.handleScroll}>
-        
+
         {entryIndex!==-1 &&
           <div>
             <div className={styles.ske}></div>

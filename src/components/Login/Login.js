@@ -13,9 +13,7 @@ export default class Login extends Component {
     }
   }
   static propTypes = {
-    // user: PropTypes.object,
     login: PropTypes.func
-    // logout: PropTypes.func
   }
   handleLogin = (event) => {
     event.preventDefault()

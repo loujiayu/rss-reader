@@ -11,11 +11,12 @@ import {subscribe} from 'redux/modules/manage'
                     user: state.auth.user}), {closePanel, subscribe})
 export default class SearchPanel extends Component {
   static propTypes = {
+    user: PropTypes.string.isRequired,
     data: PropTypes.object,
     loading: PropTypes.bool,
     loaded: PropTypes.bool,
-    closePanel: PropTypes.func,
-    subscribe: PropTypes.func
+    closePanel: PropTypes.func.isRequired,
+    subscribe: PropTypes.func.isRequired
   }
   componentDidMount () {
     document.addEventListener('click', this.handleDocumentClick)

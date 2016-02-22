@@ -20,7 +20,7 @@ const REFRESH_FAIL = 'REFRESH_FAIL'
 
 const initialState = {
   fetch: false,
-  selected: '',
+  selected: [],
   entryIndex: -1,
   refreshing: false
 }
