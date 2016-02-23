@@ -16,7 +16,7 @@ export default class ContentPenal extends Component {
   }
   static propTypes = {
     entryIndex: PropTypes.number,
-    contents: PropTypes.object
+    contents: PropTypes.array
   }
   handleScroll = (event) => {
     var st = event.target.scrollTop

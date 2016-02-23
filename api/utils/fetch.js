@@ -11,30 +11,34 @@ var continuation = ''
 var now = Date.parse(Date())
 
 function fetchNew(item) {
-  console.log(item.published);
-  console.log(now);
   return item.published > now-86400000*3
 }
 
 async function presave(contents, name) {
-  var results = []
+  var feeds = []
+  var cts = []
   var item
   try {
     for(let i=0;i<contents.length;++i) {
       item = contents[i]
-      console.log(item);
+      // console.log(item);
       var data = await Feed.findOne({sId: item.id, nm: name})
+      console.log(`presave find data ${data}`);
       if(!data) {
+        // console.log(data);
         item.summary.content = item.summary.content.replace(/<h\d>.*?<\/h\d>/, '')
         var id = item.id.split('=')[1].replace(/\_|\:/g,'')
-        results.push({con: item.summary.content, pub: item.published, tt: item.title,
-          oId: item.originId, rd: false, st: false, sId: id, fId: item.origin.streamId,fnm: item.origin.title})
+        cts.push({con: item.summary.content, pub: item.published, _id: id, tt: item.title, oId: item.originId})
+        feeds.push({nm:name, pub: item.published, rd: false, st: false, sId: id, fId: item.origin.streamId,fnm: item.origin.title})
+        // results.push({con: item.summary.content, pub: item.published, tt: item.title,
+        //   oId: item.originId, rd: false, st: false, sId: id, fId: item.origin.streamId,fnm: item.origin.title})
       }
     }
   } catch (err) {
     console.log(err)
   }
-  return results
+  // console.log(cts);
+  return {fd: feeds, cts: cts}
 }
 
 function fetchContent(feedId, name) {
@@ -50,7 +54,7 @@ function fetchContent(feedId, name) {
             continuation = body.continuation
             // var filtered = body.items
             console.log(`filtered.length ${filtered.length}`);
-            console.log(filtered);
+            // console.log(filtered);
             presave(filtered, name).then((results) => {
               resolve(results)
             })
@@ -60,24 +64,33 @@ function fetchContent(feedId, name) {
 }
 
 export async function getNewFeeds(feedId, name) {
-  var block = []
+  // var block = []
+  var fd = []
+  var cts = []
   try {
     for(let i = 0; i < 1; ++i) {
       var newFeed = await fetchContent(feedId, name)
-      block = block.concat(newFeed)
-      if(newFeed.length !== 10) {
+      console.log(newFeed.fd);
+      fd = fd.concat(newFeed.fd)
+      cts = cts.concat(newFeed.cts)
+      // block = block.concat(newFeed)
+      if(newFeed.fd.length !== 10) {
         break
       }
     }
+    continuation = ''
   } catch(err) {
     console.log(err);
   }
-  return block
+  // console.log(`getNewFeeds ${fd}`);
+  return {fd: fd, cts: cts}
 }
 
 export async function feedsRefresh(username) {
   now = Date.parse(Date()) / 1000
-  var block = []
+  // var block = []
+  var fd = []
+  var cts = []
   var unreadCount = {}
   try {
     var profile = await User.findOne({nm: username})
@@ -86,18 +99,19 @@ export async function feedsRefresh(username) {
       unreadCount[item.f] = 0
       while(true) {
         var feeds = await fetchContent(item.fr)
-        block = block.concat(feeds)
+        fd = fd.concat(feeds.fd)
+        cts = cts.concat(feeds.cts)
+        // block = block.concat(feeds)
         unreadCount[item.f] += feeds.length
-        console.log(`feedsRefresh ${feeds.length}`);
-        console.log(`block ${block.length}`);
-        if(feeds.length !== 10) {
+        if(feeds.fd.length !== 10) {
           break
         }
       }
+      continuation = ''
     }
   } catch(err) {
     console.log(err);
   }
   // console.log(`block ${block.length}`);
-  return {feeds: block, ct: unreadCount}
+  return {feeds: {fd: fd, cts: cts}, ct: unreadCount}
 }

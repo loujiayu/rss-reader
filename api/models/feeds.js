@@ -18,9 +18,6 @@ var feedSchema = new Schema({
     type:String,
     require: true
   },
-  tt: {
-    type: String
-  },
   rd: {
     type: Boolean
   },
@@ -32,14 +29,8 @@ var feedSchema = new Schema({
     require: true,
     index: true
   },
-  con:{
-    type: String,
-  },
   pub: {
     type: Number,
-  },
-  oId: {
-    type: String
   }
 })
 
