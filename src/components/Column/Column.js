@@ -75,7 +75,6 @@ export default class Column extends Component {
                 default:
                   break
               }
-              item.con = item.con.replace(/<h\d>.*?<\/h\d>/, '')
               var header = item.con.replace(/<.*?>/g, '')
               var time = new Date(item.pub)
               var timeString = time.toLocaleTimeString()

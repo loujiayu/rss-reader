@@ -8,7 +8,7 @@ export function subscribe(req) {
   const {feedId, title, website} = rss
   var icon = `https://www.google.com/s2/favicons?domain=${website}&alt=feed`
   return new Promise((resolve, reject) => {
-    getNewFeeds(feedId).then((newFeeds) => {
+    getNewFeeds(feedId, name).then((newFeeds) => {
       resolve(title)
       console.log(newFeeds.length);
       if(newFeeds.length === 0) {
@@ -54,7 +54,7 @@ export async function markall(req) {
 
 export async function mark(req) {
   const {index, name} = req.query
-  var doc = await Feed.findOne({_id: index}).exec()
+  var doc = await Feed.findOne({sId: index, nm:name}).exec()
   doc.rd = true
   console.log(doc.fnm);
   doc.save()
@@ -83,9 +83,9 @@ export function feedcontent(req) {
 }
 
 export function star(req) {
-  const {index, flag} = req
+  const {index, flag, name} = req
   return new Promise((resolve, reject) => {
-    Feed.findOne({_id: index}, (err, doc) => {
+    Feed.findOne({sId: index, nm:name}, (err, doc) => {
       doc.st = flag
       doc.save()
     })

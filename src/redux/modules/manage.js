@@ -185,13 +185,14 @@ export function contentSelect(index) {
   }
 }
 
-export function star(flag, index) {
+export function star(flag, index, name) {
   return {
     types: [STAR,STAR_SUCCESS, STAR_FAIL],
     promise: (client) => client.post('/star', {
       params: {
         index: index,
-        star: !flag
+        star: !flag,
+        name: name
       }
     })
   }

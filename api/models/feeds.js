@@ -4,20 +4,19 @@ var Schema = mongoose.Schema
 // fId, con, pub, oId
 // nm, pw, tt, fnm
 var feedSchema = new Schema({
-  _id:{
+  nm:{
     type:String,
     require: true,
-    index:true
+    index: true
   },
-  nm:{
+  sId: {
     type:String,
     require: true,
     index: true
   },
   fId: {
     type:String,
-    require: true,
-    index:true
+    require: true
   },
   tt: {
     type: String

@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import {star} from 'redux/modules/manage'
 
 @connect(state => ({entryIndex:state.manage.entryIndex,
-                    contents: state.manage.contents}),
+                    contents: state.manage.contents,
+                    user: state.auth.user}),
                   {star})
 export default class ContentPenal extends Component {
   constructor() {
@@ -29,7 +30,7 @@ export default class ContentPenal extends Component {
     this.setState({lastScrollTop: st})
   }
   handleStar = (flag, index) => {
-    this.props.star(flag,index)
+    this.props.star(flag,index, this.props.user)
   }
   render() {
     const styles = require('./ContentPenal.less')
