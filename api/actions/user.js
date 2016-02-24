@@ -10,13 +10,13 @@ export function login(req) {
   const {name, password} = req.body
   return new Promise((resolve, reject) => {
     User.findOne({nm: name}, (err, profile) => {
-      if(err) {
-        reject(err)
+      if(!profile) {
+        reject({message:"we can not find this account", status: 401})
       } else {
         console.log(name);
         if(profile.pw === password) {
           req.session.user = name
-          console.log(name);
+          console.log(name)
           resolve(name)
         } else {
           reject('wrong password')

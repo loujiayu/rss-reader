@@ -3,7 +3,10 @@ import ReactDom from 'react-dom'
 import { connect } from 'react-redux'
 import * as authActions from 'redux/modules/auth';
 
-@connect(state => ({user: state.auth.user}), authActions)
+@connect(state => ({
+  user: state.auth.user,
+  loginError: state.auth.loginError
+}), authActions)
 export default class Login extends Component {
   constructor() {
     super()
@@ -13,7 +16,15 @@ export default class Login extends Component {
     }
   }
   static propTypes = {
-    login: PropTypes.func
+    login: PropTypes.func.isRequired,
+    loginError: PropTypes.string
+  }
+  componentWillReceiveProps(nextProps) {
+    if(!this.props.loginError && nextProps.loginError) {
+      // login error
+    } else {
+      // remove error info
+    }
   }
   handleLogin = (event) => {
     event.preventDefault()
@@ -48,14 +59,18 @@ export default class Login extends Component {
     // var identialStyle = this.state.passwordIdential ? styles.passwordError : styles.notShow
   }
   render() {
-    const {user} = this.props;
+    const {user, loginError} = this.props
     var {passwordIdential} = this.state
+    var shake
     const styles = require('./Login.less')
+    if(loginError) {
+      shake = styles.shake
+    }
     console.log(passwordIdential)
     console.log(user)
     return (
       <div className={styles.dialog}>
-        <div className={styles.flipper + ' ' + styles.bounceIn}>
+        <div className={`${shake} ${styles.flipper} ${styles.bounceIn}`}>
           <div className={styles.login}>
             <form method="POST" className={styles.dialogForm} onSubmit={this.handleLogin}>
               <div className={styles.dialogHeader}>
@@ -67,7 +82,8 @@ export default class Login extends Component {
               </div>
               <div className={styles.dialogInput+ " form-group"}>
                 <input type="password" ref="loginPassword" className="form-control"
-                       placeholder="password"/>
+                       placeholder="password" />
+                    {loginError && <span>{loginError.message}</span>}
               </div>
               <div className={styles.continue}>
                 <button type="submit" className="btn btn-default btn-block btn-lg">CONTUNUE</button>

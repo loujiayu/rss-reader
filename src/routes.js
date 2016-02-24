@@ -34,7 +34,6 @@ export default (store) => {
       <IndexRoute component={Login}/>
       <Route onEnter={requireLogin}>
         <Route path="loginSuccess" component={Center}/>
-        <Route path="center" conponent={Center}/>
       </Route>
       <Route path="login" component={Login}/>
     </Route>
