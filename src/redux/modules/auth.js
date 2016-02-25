@@ -35,7 +35,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: false,
-        error: action.error
+        loginError: action.error
       }
     case LOGIN:
       return {
@@ -70,7 +70,20 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingOut: false,
-        logoutError: action.error
+        loginError: action.error
+      }
+    case REGISTER:
+      return state
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        register: true,
+      }
+    case REGISTER_FAIL:
+      return {
+        ...state,
+        register: false,
+        regError: action.error
       }
     default:
       return state

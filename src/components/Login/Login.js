@@ -1,38 +1,37 @@
 import React, { Component, PropTypes} from 'react'
 import ReactDom from 'react-dom'
 import { connect } from 'react-redux'
+
 import * as authActions from 'redux/modules/auth';
 
 @connect(state => ({
   user: state.auth.user,
-  loginError: state.auth.loginError
+  loginError: state.auth.loginError,
+  regError: state.auth.regError
 }), authActions)
 export default class Login extends Component {
   constructor() {
     super()
     this.state = {
       needRegister: false,
-      passwordIdential: true
+      passwordIdential: true,
+      errorMsg: false,
+      regMsg: false
     }
   }
   static propTypes = {
-    login: PropTypes.func.isRequired,
-    loginError: PropTypes.string
+    login: PropTypes.func.isRequired
+    // error: PropTypes.Object
   }
   componentWillReceiveProps(nextProps) {
-    if(!this.props.loginError && nextProps.loginError) {
-      // login error
-    } else {
-      // remove error info
-    }
+    nextProps.loginError ? this.setState({errorMsg: true}) : this.setState({errorMsg: false})
+    nextProps.regError ? this.setState({regMsg: true}) : this.setState({regMsg: false})
   }
   handleLogin = (event) => {
     event.preventDefault()
     const user = this.refs.loginUsername
     const password = this.refs.loginPassword
     this.props.login(user.value, password.value)
-    // user.value = ''
-    // password.value = ''
   }
   checkPassword = () => {
     const {reUsername, rePassword, reCnfPassword} = this.refs
@@ -59,11 +58,11 @@ export default class Login extends Component {
     // var identialStyle = this.state.passwordIdential ? styles.passwordError : styles.notShow
   }
   render() {
-    const {user, loginError} = this.props
-    var {passwordIdential} = this.state
+    const {user, loginError, regError} = this.props
+    var {passwordIdential, errorMsg, regMsg} = this.state
     var shake
     const styles = require('./Login.less')
-    if(loginError) {
+    if(errorMsg || regMsg) {
       shake = styles.shake
     }
     console.log(passwordIdential)
@@ -83,7 +82,7 @@ export default class Login extends Component {
               <div className={styles.dialogInput+ " form-group"}>
                 <input type="password" ref="loginPassword" className="form-control"
                        placeholder="password" />
-                    {loginError && <span>{loginError.message}</span>}
+                     {errorMsg && <span className={styles.errorMsg}>{loginError.message}</span>}
               </div>
               <div className={styles.continue}>
                 <button type="submit" className="btn btn-default btn-block btn-lg">CONTUNUE</button>
@@ -106,7 +105,7 @@ export default class Login extends Component {
               </div>
               <div className={styles.dialogInput+ " form-group"}>
                 <input type="password" ref="reCnfPassword" onBlur={this.checkPassword} className="form-control" placeholder="confirm password"/>
-
+                {regMsg && <span className={styles.errorMsg}>{regError.message}</span>}
               </div>
               <div className={styles.continue}>
                 <button type="submit" className="btn btn-default btn-block btn-lg">CONTUNUE</button>

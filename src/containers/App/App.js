@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { LinkContainer } from 'react-router-bootstrap';
 import {Login} from 'components'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
 import { routeActions } from 'react-router-redux';
