@@ -1,9 +1,9 @@
 .appWrapper {
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
   .frame {
-    flex:20;
     .navBar {
       width: 100%;
       // height: 4em;
@@ -21,21 +21,6 @@
   .appContent {
     width: 100%;
     height: 100%;
-  }
-  .login {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .loginPanel {
-      display: flex;
-      flex-direction:column;
-    }
   }
   .normal {
     display: none;

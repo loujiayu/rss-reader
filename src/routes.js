@@ -31,7 +31,7 @@ export default (store) => {
    */
   return (
     <Route path="/" component={New}>
-      <IndexRoute component={Login}/>
+      <IndexRoute component={Home}/>
       <Route onEnter={requireLogin}>
         <Route path="loginSuccess" component={Center}/>
       </Route>

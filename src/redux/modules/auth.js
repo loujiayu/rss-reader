@@ -13,7 +13,8 @@ const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const REGISTER_FAIL = 'REGISTER_FAIL'
 
 const initialState = {
-  loaded: false
+  loaded: false,
+  loading: false
 }
 
 export default function reducer(state = initialState, action = {}) {

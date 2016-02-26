@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {Login} from 'components'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
 import { routeActions } from 'react-router-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import { asyncConnect } from 'redux-async-connect';
 
 @asyncConnect([{
@@ -41,17 +42,18 @@ export default class App extends Component {
   handleLogin = (event) => {
     event.preventDefault()
     this.setState({show:true})
+    // this.props.pushState('/login');
   }
 
   render() {
     const styles = require('./App.less')
-      // var showStyle = this.state.show ? styles.login : styles.normal
-    var showStyle = styles.login
-    var login = true
+    const {user} = this.props
+    var {show} = this.state
 
+    // console.log(loaded);
     return (
       <div className={styles.appWrapper}>
-        {!login && <div className={styles.frame}>
+        {!user && <div className={styles.frame}>
           <div className={styles.navBar}>
             <div className={styles.navHeader}>
               <h3>Home</h3>
@@ -61,6 +63,7 @@ export default class App extends Component {
             </div>
           </div>
         </div>}
+        {show && <Login />}
         <div className={styles.appContent}>
           {this.props.children}
         </div>
