@@ -34,7 +34,6 @@ export default class SearchPanel extends Component {
     this.props.closePanel()
   }
   handleSubscribe = (item, event) => {
-    // console.log(this.props.user);
     var {feedId, title, website} = item
     this.props.subscribe({feedId: feedId, title: title, website: website}, this.props.user)
   }

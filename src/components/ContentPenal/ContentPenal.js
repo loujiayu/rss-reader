@@ -38,7 +38,6 @@ export default class ContentPenal extends Component {
     var entryBarStyle = this.state.fade ? styles.fadeInDown : styles.fadeInUp
     if(entryIndex !== -1) {
       var item = contents[entryIndex]
-      // item.con += '<img width="50" height="50" src="http://jmperezperez.com/assets/images/posts/svg-inline-html-use.png"></img>'
       var starredIcon = item.st ? 'fa fa-star fa-lg' : 'fa fa-star-o fa-lg'
     }
     return (
@@ -55,7 +54,6 @@ export default class ContentPenal extends Component {
               </div>
             </nav>
             <div className={styles.header}><h2>{item.tt}</h2></div>
-            {/*<img width="50" height="50" src="http://jmperezperez.com/assets/images/posts/svg-inline-html-use.png"></img>*/}
             <div className={styles.contents}
                dangerouslySetInnerHTML={{__html:item.con} }>
             </div> </div>}
