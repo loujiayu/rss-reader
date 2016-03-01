@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router';
 import { SearchPanel, Login, ContentPenal, Column, FeedTab } from 'components';
 import createStore from 'redux/create';
 import ApiClient from 'helpers/ApiClient';
-const client = new ApiClient();
+const client = new ApiClient();``
 
 describe('component', () => {
   describe('ContentPenal', () => {
