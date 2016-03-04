@@ -1,8 +1,11 @@
 .feeds {
   flex: 1.5;
+  max-width: 15%;
   display: flex;
   flex-direction: column;
   background-color: black;
+  opacity: 1;
+  transition: all .5s;
   .searchBar {
     flex-basis: 30px;
     // padding: 1em;
@@ -61,4 +64,9 @@
       padding: 0 1em;
     }
   }
+}
+
+.hidden {
+  width: 0;
+  flex: none;
 }

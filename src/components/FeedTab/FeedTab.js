@@ -8,7 +8,8 @@ import {refresh, getContent} from 'redux/modules/manage'
   addone: state.manage.addone,
   list: state.manage.list,
   selected: state.manage.selected,
-  refreshing: state.manage.refreshing
+  refreshing: state.manage.refreshing,
+  mode: state.stat.mode
 }), {search, refresh, getContent})
 export default class Column extends Component {
   static propTypes = {
@@ -19,7 +20,8 @@ export default class Column extends Component {
     addone: PropTypes.string,
     list: PropTypes.array,
     selected: PropTypes.array,
-    refreshing: PropTypes.bool.isRequired
+    refreshing: PropTypes.bool.isRequired,
+    mode: PropTypes.bool.isRequired,
   }
   loadContent = (title, index) => {
     this.props.getContent(this.props.user, title, index)
@@ -35,11 +37,12 @@ export default class Column extends Component {
   }
   render() {
     const styles = require('./FeedTab.less')
-    const {list, addone, selected, refreshing} = this.props
+    const {list, addone, selected, refreshing, mode} = this.props
     const refreshStyle = refreshing ? "fa fa-refresh fa-spin" : "fa fa-refresh"
+    const readMode = mode ? styles.hidden : ''
 
     return (
-      <div className={styles.feeds}>
+      <div className={`${styles.feeds} ${readMode}`}>
         <div className={styles.searchBar}>
           <form onSubmit={this.handleSearch}>
             <input type='text' ref="search" placeholder="search"/>

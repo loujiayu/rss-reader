@@ -1,11 +1,13 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import {star} from 'redux/modules/manage'
+import {changeMode} from 'redux/modules/stat'
 
 @connect(state => ({entryIndex:state.manage.entryIndex,
                     contents: state.manage.contents,
-                    user: state.auth.user}),
-                  {star})
+                    user: state.auth.user,
+                    mode: state.stat.mode}),
+                  {star, changeMode})
 export default class ContentPenal extends Component {
   constructor() {
     super()
@@ -16,7 +18,8 @@ export default class ContentPenal extends Component {
   }
   static propTypes = {
     entryIndex: PropTypes.number,
-    contents: PropTypes.array
+    contents: PropTypes.array,
+    mode: PropTypes.bool.isRequired
   }
   handleScroll = (event) => {
     var st = event.target.scrollTop
@@ -29,9 +32,9 @@ export default class ContentPenal extends Component {
     }
     this.setState({lastScrollTop: st})
   }
-  handleStar = (flag, index) => {
-    this.props.star(flag,index, this.props.user)
-  }
+  handleStar = (flag, index) => this.props.star(flag,index, this.props.user)
+  changeMode = () => this.props.changeMode()
+
   render() {
     const styles = require('./ContentPenal.less')
     const {entryIndex, contents} = this.props
@@ -42,12 +45,12 @@ export default class ContentPenal extends Component {
     }
     return (
       <div className={styles.entry} onScroll={this.handleScroll}>
-
         {entryIndex!==-1 &&
           <div>
             <div className={styles.ske}></div>
             <nav className={`${styles.floatingBar} ${entryBarStyle}`}>
               <div className={styles.barSource}>{item.fnm}</div>
+              <i className="fa fa-book fa-lg" onClick={this.changeMode}></i>
               <div className={styles.toolCollect}>
                 <span className={starredIcon} onClick={this.handleStar.bind(item.st, item._id)}></span>
                 <span className="fa fa-external-link fa-lg"></span>

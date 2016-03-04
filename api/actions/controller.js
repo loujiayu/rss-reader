@@ -41,8 +41,6 @@ export async function subscribe(req) {
 
 }
 
-
-
 export async function refresh(req) {
   const {name} = req.query
   var results = await feedsRefresh(name)

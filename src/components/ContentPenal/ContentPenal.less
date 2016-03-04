@@ -1,6 +1,6 @@
 .entry {
   flex: 6.5;
-  width: 65%;
+  min-width: 65%;
   position: relative;
   overflow: scroll;
   background-color: rgb(238, 237, 228);
@@ -32,12 +32,15 @@
     height: 30px;
     top: 0;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    width: 65%;
+    min-width: 65%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: rgb(238, 237, 228);
     padding: 0 2em;
+    i {
+      cursor: pointer;
+    }
     .toolCollect {
       flex-basis: 8em;
       display: flex;

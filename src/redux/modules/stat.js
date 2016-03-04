@@ -1,17 +1,25 @@
 const SELECTED = 'SELECTED'
-const CHANGE = 'CHANGE'
+const CHANGESTATE = 'CHANGESTATE'
+const CHANGEMODE = 'CHANGEMODE'
 
 const initialState = {
-  status: 'unread'
+  status: 'unread',
+  mode: false
 }
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case CHANGE:
+    case CHANGESTATE:
       return {
         ...state,
         status: action.change
       }
+    case CHANGEMODE: {
+      return {
+        ...state,
+        mode: !state.mode
+      }
+    }
     default:
       return state
   }
@@ -19,7 +27,13 @@ export default function reducer(state = initialState, action = {}) {
 
 export function changeState(s) {
   return {
-    type: CHANGE,
+    type: CHANGESTATE,
     change: s
+  }
+}
+
+export function changeMode() {
+  return {
+    type: CHANGEMODE
   }
 }

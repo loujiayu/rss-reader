@@ -9,9 +9,16 @@ import {changeState} from 'redux/modules/stat'
   contents: state.manage.contents,
   selected: state.manage.selected,
   status: state.stat.status,
-  entryIndex:state.manage.entryIndex
+  entryIndex:state.manage.entryIndex,
+  mode: state.stat.mode
 }), { markReaded, markAllReaded, contentSelect, changeState })
 export default class Column extends Component {
+  constructor() {
+    super()
+    this.state = {
+      feedListShow: false
+    }
+  }
   static propTypes = {
     user: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
@@ -22,9 +29,17 @@ export default class Column extends Component {
     markAllReaded: PropTypes.func.isRequired,
     contentSelect: PropTypes.func.isRequired,
     changeState: PropTypes.func.isRequired,
+    mode: PropTypes.bool.isRequired
   }
   handleFeedState = (event) => {
     this.props.changeState(event.target.dataset.type)
+  }
+  componentWillReceiveProps(nextProps) {
+    if(this.props.mode && !nextProps.mode) {
+      setTimeout(() => this.setState({feedListShow: false}), 500)
+    } else if(!this.props.mode && nextProps.mode){
+      this.setState({feedListShow: true})
+    }
   }
   readContent = (id, index) => {
     if(!this.props.contents[index].rd) {
@@ -43,9 +58,11 @@ export default class Column extends Component {
   }
   render() {
     const styles = require('./Column.less')
-    const {contents, selected, status, entryIndex} = this.props
+    const {contents, selected, status, entryIndex, mode} = this.props
+    const readMode = mode ? styles.hidden : ''
+
     return (
-      <div className={styles.column}>
+      <div className={`${styles.column} ${readMode}`}>
         <div className={styles.feedState} onClick={this.handleFeedState}>
           {
             [['fa fa-star', 'starred'],
@@ -60,7 +77,7 @@ export default class Column extends Component {
         </div>
         <div className={styles.itemList}>
           <ul>
-            {contents && contents.map((item, index) => {
+            {!this.state.feedListShow && contents && contents.map((item, index) => {
               switch (status) {
                 case 'unread':
                   if(item.rd && entryIndex !== index) {
