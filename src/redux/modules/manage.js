@@ -10,6 +10,9 @@ const GETCONTENT_SUCCESS = 'GETCONTENT_SUCCESS'
 const MARKREAD = 'MARKREAD'
 const MARKREAD_FAIL = 'MARKREAD_FAIL'
 const MARKREAD_SUCCESS = 'MARKREAD_SUCCESS'
+const MARKREADALL = 'MARKREADALL'
+const MARKREADALL_FAIL = 'MARKREADALL_FAIL'
+const MARKREADALL_SUCCESS = 'MARKREADALL_SUCCESS'
 const CONSELECTED = 'CONSELECTED'
 const STAR = 'STAR'
 const STAR_SUCCESS = 'STAR_SUCCESS'
@@ -17,12 +20,14 @@ const STAR_FAIL = 'STAR_FAIL'
 const REFRESH = 'REFRESH'
 const REFRESH_SUCCESS = 'REFRESH_SUCCESS'
 const REFRESH_FAIL = 'REFRESH_FAIL'
+const REMARK = 'REMARK'
 
 const initialState = {
   fetch: false,
   selected: [],
   entryIndex: -1,
-  refreshing: false
+  refreshing: false,
+  markall: false
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -82,8 +87,27 @@ export default function reducer(state = initialState, action = {}) {
     case MARKREAD_FAIL:
       return {
         ...state,
+        error: action.error
+      }
+    case MARKREADALL:
+      return state
+    case MARKREADALL_SUCCESS:
+      return {
+        ...state,
+        list: action.result,
+        markall: true
+        // entryIndex: action.entryIndex
+      }
+    case MARKREADALL_FAIL:
+      return {
+        ...state,
         error: action.error,
-        fetch:false
+        markall: false
+      }
+    case REMARK:
+      return {
+        ...state,
+        markall: false
       }
     case CONSELECTED:
       return {
@@ -157,13 +181,19 @@ export function markReaded(name, id) {
 
 export function markAllReaded(name, title) {
   return {
-    types: [MARKREAD, MARKREAD_SUCCESS, MARKREAD_FAIL],
+    types: [MARKREADALL, MARKREADALL_SUCCESS, MARKREADALL_FAIL],
     promise: (client) => client.post('/markall', {
       params: {
         name: name,
         title:title
       }
     })
+  }
+}
+
+export function reMark() {
+  return {
+    type: REMARK
   }
 }
 

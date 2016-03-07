@@ -1,0 +1,35 @@
+@snack-height: 3em;
+.origin {
+  height: @snack-height;
+  line-height: @snack-height;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, @snack-height);
+  width: 15em;
+  text-align: center;
+  background-color: black;
+  span {
+    color: white;
+    // padding: 0 1em;
+  }
+}
+.snack {
+  animation-name: movein;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+}
+
+// animate
+
+@keyframes movein {
+  from {
+    transform: translate3d(0, @snack-height, 0);
+  }
+  10%, 90% {
+    transform: translate3d(0,0,0);
+  }
+  to {
+    transform: translate3d(0,@snack-height,0);
+  }
+}

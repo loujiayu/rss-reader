@@ -94,10 +94,10 @@ export async function feedcontent(req) {
   var list = await Feed.find({nm: name, fnm: title}).exec()
   for(let i=0; i < list.length; ++i) {
     item = list[i]
-    // results[i].sId
     article = await Content.findOne({_id: item.sId}).exec()
-    results.push(Object.assign(article, {rd: item.rd, st: item.st, fId: item.fId, fnm:item.fnm}))
+    results.push(Object.assign({}, article._doc, {rd: item.rd, st: item.st, fId: item.fId, fnm:item.fnm}))
   }
+  // console.log(results);
   return results
 }
 

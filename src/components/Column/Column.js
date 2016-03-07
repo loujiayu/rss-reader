@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
 
+import { SnackBar } from 'components'
 import {markReaded, markAllReaded ,contentSelect} from 'redux/modules/manage'
 import {changeState} from 'redux/modules/stat'
 
@@ -34,13 +35,6 @@ export default class Column extends Component {
   handleFeedState = (event) => {
     this.props.changeState(event.target.dataset.type)
   }
-  componentWillReceiveProps(nextProps) {
-    if(this.props.mode && !nextProps.mode) {
-      setTimeout(() => this.setState({feedListShow: false}), 500)
-    } else if(!this.props.mode && nextProps.mode){
-      this.setState({feedListShow: true})
-    }
-  }
   readContent = (id, index) => {
     if(!this.props.contents[index].rd) {
       this.props.contents[index].rd = true
@@ -52,17 +46,18 @@ export default class Column extends Component {
   }
   handleMark = (title, event) => {
     this.props.markAllReaded(this.props.user, title)
-    this.contents.map((item) => {
-      item.rd = true
-    })
+    if(this.props.contents) {
+      this.props.contents.map((item) => {
+        item.rd = true
+      })
+    }
   }
   render() {
     const styles = require('./Column.less')
     const {contents, selected, status, entryIndex, mode} = this.props
-    const readMode = mode ? styles.hidden : ''
 
     return (
-      <div className={`${styles.column} ${readMode}`}>
+      <div className={styles.column}>
         <div className={styles.feedState} onClick={this.handleFeedState}>
           {
             [['fa fa-star', 'starred'],
@@ -77,7 +72,7 @@ export default class Column extends Component {
         </div>
         <div className={styles.itemList}>
           <ul>
-            {!this.state.feedListShow && contents && contents.map((item, index) => {
+            {contents && contents.map((item, index) => {
               switch (status) {
                 case 'unread':
                   if(item.rd && entryIndex !== index) {
@@ -116,6 +111,7 @@ export default class Column extends Component {
         <div className={styles.mark} onClick={this.handleMark.bind(this,selected[0])}>
           Mark all as read
         </div>
+        <SnackBar message="Marked as read"/>
       </div>
     )
   }
