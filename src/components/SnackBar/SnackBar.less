@@ -9,9 +9,9 @@
   width: 15em;
   text-align: center;
   background-color: black;
+  z-index: 1;
   span {
     color: white;
-    // padding: 0 1em;
   }
 }
 .snack {
@@ -24,12 +24,12 @@
 
 @keyframes movein {
   from {
-    transform: translate3d(0, @snack-height, 0);
+    transform: translate(-50%, @snack-height);
   }
   10%, 90% {
-    transform: translate3d(0,0,0);
+    transform: translate(-50%, 0);
   }
   to {
-    transform: translate3d(0,@snack-height,0);
+    transform: translate(-50%, @snack-height);
   }
 }

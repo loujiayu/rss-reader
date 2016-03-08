@@ -30,6 +30,7 @@
     position: fixed;
     height: 30px;
     top: 0;
+    right: 0;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     min-width: 65%;
     display: flex;
@@ -37,6 +38,9 @@
     align-items: center;
     background-color: rgb(238, 237, 228);
     padding: 0 2em;
+    .back {
+      display: none;
+    }
     i {
       cursor: pointer;
     }
@@ -52,6 +56,36 @@
   }
 }
 
+@media screen and (max-width: 980px) {
+  .immedRes {
+    display: none;
+  }
+  .entry {
+    max-width: 70%;
+    .floatingBar {
+      min-width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .delayRes {
+    display: none;
+  }
+  .entry {
+    max-width: 100%;
+    .floatingBar {
+      width: 100%;
+    }
+    .back {
+      display: inline-block !important;
+      cursor: pointer;
+    }
+    .barSource {
+      display: none !important;
+    }
+  }
+}
 
 // animate
 

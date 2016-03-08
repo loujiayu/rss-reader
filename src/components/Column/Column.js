@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { SnackBar } from 'components'
 import {markReaded, markAllReaded ,contentSelect} from 'redux/modules/manage'
 import {changeState} from 'redux/modules/stat'
+import {contentSwitch, tabSwitch} from 'redux/modules/media'
 
 @connect(state => ({
   user: state.auth.user,
@@ -11,8 +12,10 @@ import {changeState} from 'redux/modules/stat'
   selected: state.manage.selected,
   status: state.stat.status,
   entryIndex:state.manage.entryIndex,
+  view: state.media.view,
   mode: state.stat.mode
-}), { markReaded, markAllReaded, contentSelect, changeState })
+}), { markReaded, markAllReaded, contentSelect, changeState,
+      contentSwitch, tabSwitch})
 export default class Column extends Component {
   constructor() {
     super()
@@ -26,8 +29,11 @@ export default class Column extends Component {
     contents: PropTypes.array,
     selected: PropTypes.array,
     entryIndex: PropTypes.number,
+    view: PropTypes.string.isRequired,
     markReaded: PropTypes.func.isRequired,
     markAllReaded: PropTypes.func.isRequired,
+    contentSwitch: PropTypes.func.isRequired,
+    columnSwitch: PropTypes.func.isRequired,
     contentSelect: PropTypes.func.isRequired,
     changeState: PropTypes.func.isRequired,
     mode: PropTypes.bool.isRequired
@@ -36,6 +42,7 @@ export default class Column extends Component {
     this.props.changeState(event.target.dataset.type)
   }
   readContent = (id, index) => {
+    this.props.contentSwitch()
     if(!this.props.contents[index].rd) {
       this.props.contents[index].rd = true
       this.props.contentSelect(index)
@@ -52,12 +59,30 @@ export default class Column extends Component {
       })
     }
   }
+  handleBack = () => this.props.tabSwitch()
+
   render() {
     const styles = require('./Column.less')
-    const {contents, selected, status, entryIndex, mode} = this.props
-
+    const {contents, selected, status, entryIndex, mode, view} = this.props
+    var media
+    switch (view) {
+      case 'FEEDTAB':
+        media = styles.tabDelayRes
+        break
+      case 'COLUMN':
+        media = ''
+        break
+      case 'CONTENT':
+        media = styles.conDelayRes
+        break
+      default:
+        break
+    }
     return (
-      <div className={styles.column}>
+      <div className={`${styles.column} ${media}`}>
+        <div className={styles.columnHeader}>
+          <div className={`${styles.back} fa fa-chevron-left fa-lg`} onClick={this.handleBack}></div>
+        </div>
         <div className={styles.feedState} onClick={this.handleFeedState}>
           {
             [['fa fa-star', 'starred'],

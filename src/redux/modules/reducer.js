@@ -9,6 +9,7 @@ import {reducer as form} from 'redux-form'
 import feedly from './feedly'
 import manage from './manage'
 import stat from './stat'
+import media from './media'
 
 export default combineReducers({
   routing: routeReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
   form,
   feedly,
   manage,
+  media,
   stat,
 })
