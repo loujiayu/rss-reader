@@ -1,6 +1,7 @@
 import React, { Component, PropTypes} from 'react'
 import ReactDom from 'react-dom'
 import { connect } from 'react-redux'
+import {TouchRipple} from 'components'
 
 import * as authActions from 'redux/modules/auth';
 
@@ -70,6 +71,7 @@ export default class Login extends Component {
     return (
       <div className={`${shake} ${styles.flipper} ${styles.bounceIn}`}>
         <div className={styles.login}>
+          {/*<TouchRipple/>*/}
           <form method="POST" className={styles.dialogForm} onSubmit={this.handleLogin}>
             <div className={styles.dialogHeader}>
               <h3>Login</h3>
