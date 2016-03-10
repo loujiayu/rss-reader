@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Feed = mongoose.model('Feed');
 
-const access_token = 'A3VSXl-aIrjukz-vVW4PD0yYThsRxgPVNk3-s04mtTjbqlKJx2WdKjMkRhZkPR773g4Vxi2RUAWnqXmY5U0DEsNRJXbQo66pGl2H8u5KgFrsUOoBehgMMOLiJ_GHrO_f6s60Ie1tH9lW8e-lIn2gREvqZG7cZzI9dIXvg2SOBUYEf0kdtDFY9gZuHaATiWcq_uA8cdJEOj8HodNCfGvHgfwxWtVJniM:sandbox'
+const access_token = 'AxnLXHDAkhHJ2L8e-7m0CqhXpmQUJOs8wK5a-WV33OVu4xUIKCv34VrUDeXFvh_o3s-sEyayOnqvZH_zGCsNpF_FojLLSkUJsVt55KQfJleIBd4bZjF4wRBvdmgyfF-vSe2Cs1gkw2aZXJKKxWO4oWRt16R90zuF3SxCLskYnX_FYRmIKRGYtxmrt0KfzjiAxlAa3tx7trcvVwRI_PfZMP3mrcQGYaBA'
 // import {stream} from '../actions/feed'
 
 var continuation = ''

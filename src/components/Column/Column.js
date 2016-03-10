@@ -33,7 +33,7 @@ export default class Column extends Component {
     markReaded: PropTypes.func.isRequired,
     markAllReaded: PropTypes.func.isRequired,
     contentSwitch: PropTypes.func.isRequired,
-    columnSwitch: PropTypes.func.isRequired,
+    tabSwitch: PropTypes.func.isRequired,
     contentSelect: PropTypes.func.isRequired,
     changeState: PropTypes.func.isRequired,
     mode: PropTypes.bool.isRequired
@@ -62,7 +62,7 @@ export default class Column extends Component {
   handleBack = () => this.props.tabSwitch()
 
   render() {
-    const styles = require('./Column.less')
+    const styles = require('./Column.scss')
     const {contents, selected, status, entryIndex, mode, view} = this.props
     var media
     switch (view) {

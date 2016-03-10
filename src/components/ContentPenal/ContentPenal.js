@@ -37,11 +37,13 @@ export default class ContentPenal extends Component {
     }
     this.setState({lastScrollTop: st})
   }
-  handleStar = (flag, index) => this.props.star(flag,index, this.props.user)
+  handleStar = (event, flag, index) => {
+    this.props.star(flag,index, this.props.user)
+  }
   changeMode = () => this.props.changeMode()
   handleBack = () => this.props.columnSwitch()
   render() {
-    const styles = require('./ContentPenal.less')
+    const styles = require('./ContentPenal.scss')
     const {entryIndex, contents, view} = this.props
     var entryBarStyle = this.state.fade ? styles.fadeInDown : styles.fadeInUp
     if(entryIndex !== -1) {
@@ -74,7 +76,7 @@ export default class ContentPenal extends Component {
               <div className={`${styles.back} fa fa-chevron-left fa-lg`} onClick={this.handleBack}></div>
               <i className="fa fa-book fa-lg" onClick={this.changeMode}></i>
               <div className={styles.toolCollect}>
-                <span className={starredIcon} onClick={this.handleStar.bind(item.st, item._id)}></span>
+                <span className={`${starredIcon} ${styles.star}`} onClick={this.handleStar.bind(this, item.st, item._id)}></span>
                 <span className="fa fa-external-link fa-lg"></span>
               </div>
             </nav>

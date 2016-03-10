@@ -50,7 +50,7 @@ export default class Login extends Component {
     }
   }
   handleFlipper = (event) => {
-    var flipper = ReactDom.findDOMNode(this).childNodes.item(0)
+    var flipper = ReactDom.findDOMNode(this)
     this.state.needRegister ? flipper.setAttribute('style', 'transform: rotateY(0deg)') :
                               flipper.setAttribute('style', 'transform: rotateY(180deg)')
     this.state.needRegister = !this.state.needRegister
@@ -61,7 +61,7 @@ export default class Login extends Component {
     const {user, loginError, regError} = this.props
     var {passwordIdential, errorMsg, regMsg} = this.state
     var shake
-    const styles = require('./Login.less')
+    const styles = require('./Login.scss')
     if(errorMsg || regMsg) {
       shake = styles.shake
     }

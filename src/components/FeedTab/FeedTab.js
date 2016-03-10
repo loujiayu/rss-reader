@@ -41,7 +41,7 @@ export default class Column extends Component {
     this.props.refresh(this.props.user)
   }
   render() {
-    const styles = require('./FeedTab.less')
+    const styles = require('./FeedTab.scss')
     const {view, list, addone, selected, refreshing, mode} = this.props
     const refreshStyle = refreshing ? "fa fa-refresh fa-spin" : "fa fa-refresh"
     const readMode = mode ? styles.hidden : ''

@@ -38,7 +38,7 @@ export default class SearchPanel extends Component {
     this.props.subscribe({feedId: feedId, title: title, website: website}, this.props.user)
   }
   render() {
-    const styles = require('./SearchPanel.less')
+    const styles = require('./SearchPanel.scss')
     const {data, loading, loaded, closed} = this.props
     var panelStyle
     if(loading || loaded) {

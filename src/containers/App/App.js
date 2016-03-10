@@ -46,7 +46,7 @@ export default class App extends Component {
   }
 
   render() {
-    const styles = require('./App.less')
+    const styles = require('./App.scss')
     const {user} = this.props
     var {show} = this.state
 

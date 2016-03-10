@@ -87,7 +87,8 @@
 
 .register {
   // transform: rotateY(180deg) translate(-50%, -50%);
-  transform: rotateY(-180deg);
+  transform: rotateY(180deg);
+  z-index: 1;
 }
 
 .login {

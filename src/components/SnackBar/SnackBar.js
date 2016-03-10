@@ -29,7 +29,7 @@ export default class SnackBar extends Component {
     }
   }
   render () {
-    const styles = require('./SnackBar.less')
+    const styles = require('./SnackBar.scss')
     const {message} = this.props
     var popStyle = this.state.show ? styles.snack : ''
     return (

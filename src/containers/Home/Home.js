@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 export default class Home extends Component {
   render() {
-    const styles = require('./Home.less')
+    const styles = require('./Home.scss')
 
     return(
       <div className={styles.home}>
-        
+
       </div>
     )
   }

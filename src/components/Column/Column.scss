@@ -1,3 +1,23 @@
+// mixin
+@mixin backShow {
+  .columnHeader {
+    display: block !important;
+    order: 1;
+    flex-basis: 30px;
+    line-height: 30px;
+    padding-left: 2em;
+    .back {
+      cursor: pointer;
+    }
+  }
+  .feedState {
+    order: 3;
+  }
+  .mark {
+    display: none !important;
+  }
+}
+
 .column {
   flex: 2;
   max-width: 20%;
@@ -86,7 +106,7 @@
 @media screen and (max-width: 980px) {
   .conDelayRes {
     max-width: 30% !important;
-    .backShow;
+     @include backShow;
   }
   .tabDelayRes,
   .column {
@@ -101,26 +121,6 @@
   }
   .column {
     max-width: 100%;
-    .backShow;
-  }
-}
-
-// mixin
-.backShow {
-  .columnHeader {
-    display: block !important;
-    order: 1;
-    flex-basis: 30px;
-    line-height: 30px;
-    padding-left: 2em;
-    .back {
-      cursor: pointer;
-    }
-  }
-  .feedState {
-    order: 3;
-  }
-  .mark {
-    display: none !important;
+    @include backShow;
   }
 }

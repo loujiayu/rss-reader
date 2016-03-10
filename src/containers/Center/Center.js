@@ -14,7 +14,7 @@ export default class Home extends Component {
     this.props.getFeeds(this.props.user)
   }
   render() {
-    const styles = require('./Center.less')
+    const styles = require('./Center.scss')
     return (
       <div className={styles.feedcenter}>
         <FeedTab />
