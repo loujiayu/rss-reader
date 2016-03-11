@@ -1,7 +1,6 @@
 import React, { Component, PropTypes} from 'react'
 import ReactDom from 'react-dom'
 import { connect } from 'react-redux'
-import {TouchRipple} from 'components'
 
 import * as authActions from 'redux/modules/auth';
 
@@ -32,7 +31,7 @@ export default class Login extends Component {
     event.preventDefault()
     const user = this.refs.loginUsername
     const password = this.refs.loginPassword
-    this.props.login(user.value, password.value)
+    // this.props.login(user.value, password.value)
   }
   checkPassword = () => {
     const {reUsername, rePassword, reCnfPassword} = this.refs

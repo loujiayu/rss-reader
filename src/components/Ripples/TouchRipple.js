@@ -52,9 +52,8 @@ const TouchRipple = React.createClass({
       //This prop allows us to only render the ReactTransitionGroup
       //on the first click of the component, making the inital
       //render faster
-      hasRipples: false,
       nextKey: 0,
-      ripples: [],
+      ripples: []
     };
   },
 
@@ -78,7 +77,6 @@ const TouchRipple = React.createClass({
 
     this.ignoreNextMouseDown = isRippleTouchGenerated;
     this.setState({
-      hasRipples: true,
       nextKey: this.state.nextKey + 1,
       ripples: ripples,
     });
@@ -204,32 +202,21 @@ const TouchRipple = React.createClass({
 
 
   render() {
-    const { children, style } = this.props;
-    const { hasRipples, ripples } = this.state;
+    const { children } = this.props;
+    const { ripples } = this.state;
 
     const styles = require('./ripple.scss')
-    let rippleGroup;
-    if (hasRipples) {
-
-      rippleGroup = (
-        <ReactTransitionGroup className={styles.transGroup}>
-          {ripples}
-        </ReactTransitionGroup>
-      );
-    }
 
     return (
-      <div
+      <ReactTransitionGroup
         onMouseUp={this.handleMouseUp}
         onMouseDown={this.handleMouseDown}
         onMouseLeave={this.handleMouseLeave}
         onTouchStart={this.handleTouchStart}
         onTouchEnd={this.handleTouchEnd}
-        className={styles.rippleWrap}
-      >
-        {rippleGroup}
-        {children}
-      </div>
+        className={styles.transGroup}>
+        {ripples}
+      </ReactTransitionGroup>
     );
   },
 

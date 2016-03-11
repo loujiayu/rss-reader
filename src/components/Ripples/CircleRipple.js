@@ -16,7 +16,7 @@ const CircleRipple = React.createClass({
 
   getDefaultProps() {
     return {
-      opacity: 0.1,
+      opacity: 1,
       aborted: false,
     };
   },
