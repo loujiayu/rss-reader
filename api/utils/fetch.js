@@ -64,7 +64,6 @@ function fetchContent(feedId, name) {
 }
 
 export async function getNewFeeds(feedId, name) {
-  // var block = []
   var fd = []
   var cts = []
   try {

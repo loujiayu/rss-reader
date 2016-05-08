@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import {Login} from 'components'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth';
-import { routeActions } from 'react-router-redux';
+import { push } from 'react-router-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { asyncConnect } from 'redux-async-connect';
 
@@ -16,7 +16,7 @@ import { asyncConnect } from 'redux-async-connect';
   }
 }])
 @connect(state => ({user: state.auth.user}),
-        {logout, pushState: routeActions.push})
+        {logout, pushState: push})
 export default class App extends Component {
   constructor() {
     super()
