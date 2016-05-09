@@ -7,6 +7,8 @@ export function loadAuth(req) {
 }
 
 export function login(req) {
+  console.log('fapisfasipfnasinipnai');
+  console.log(req);
   const {name, password} = req.body
   return new Promise((resolve, reject) => {
     User.findOne({nm: name}, (err, profile) => {
