@@ -2,14 +2,13 @@
   transform-style: preserve-3d;
   height: 400px;
   width: 300px;
-  // position: relative;
   position: fixed;
   top: 50%;
   left: 50%;
-  // transform: translate(-50%,-50%);
   margin-top: -200px;
   margin-left: -159px;
   border-radius: 5px;
+  transform: rotateY(0);
   border: 0;
   transition-property: transform;
   transition-duration: .5s;
@@ -41,7 +40,9 @@
       flex: 1;
       padding: 0 1em;
       text-align: center;
-      input {
+      .input {
+        width: 100%;
+        padding: 5px;
         background-color: transparent;
         letter-spacing: .1em;
         text-align: left;
@@ -69,6 +70,8 @@
       flex:1;
       padding: 1em 0;
       button {
+        width: 100%;
+        font-size: 15px;
         border: none;
         border-radius: 0;
         outline: none;
@@ -85,16 +88,12 @@
   }
 }
 
-.register {
-  // transform: rotateY(180deg) translate(-50%, -50%);
-  transform: rotateY(180deg);
-  z-index: 1;
+.register{
+  transform: rotateY(-180deg);
 }
 
 .login {
-  // transform: rotateY(0deg);
-  // transform: rotateY(0deg) translate(-50%, -50%);
-  z-index: 2;
+  transform: rotateY(0deg);
 }
 
 .passwordError {

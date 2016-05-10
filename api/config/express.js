@@ -20,13 +20,8 @@ module.exports = function (app, express, passport) {
   app.use(bodyParser.json());
 
   app.use((req, res) => {
-    console.log(req.url);
     const splittedUrlPath = req.url.split('?')[0].split('/').slice(1);
-    // const splittedUrlPath = req.url.split('?')[0]
     const {action, params} = mapUrl(actions, splittedUrlPath);
-    console.log(action)
-    console.log(params);
-    console.log('end!~~~!~');
     if (action) {
       action(req, params)
         .then((result) => {
@@ -34,11 +29,9 @@ module.exports = function (app, express, passport) {
             result(res);
           } else {
             console.log('result::');
-            // console.log(result);
             res.json(result);
           }
         }, (reason) => {
-          console.log('error~~!~~');
           console.log(reason);
           if (reason && reason.redirect) {
             res.redirect(reason.redirect);

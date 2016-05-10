@@ -1,9 +1,8 @@
 import request from 'superagent'
-const access_token = 'AxnLXHDAkhHJ2L8e-7m0CqhXpmQUJOs8wK5a-WV33OVu4xUIKCv34VrUDeXFvh_o3s-sEyayOnqvZH_zGCsNpF_FojLLSkUJsVt55KQfJleIBd4bZjF4wRBvdmgyfF-vSe2Cs1gkw2aZXJKKxWO4oWRt16R90zuF3SxCLskYnX_FYRmIKRGYtxmrt0KfzjiAxlAa3tx7trcvVwRI_PfZMP3mrcQGYaBA'
+const access_token = 'A3q8IovwlwdBHz413omUSTLM7yrSpRqKkSSHufiJsvveBgeno1j978QlnBAkhuKFySyFP8TwB-KLKTcRIS7g599-rxkE8uZxVY2PCHMierorbFLWwps-GpisG21-eAdP1YKYd7j97rcRGYklNxqX76_MwnAjrlxQjZ79zv9kIo_CVo-65Po8ld8PeZdbklItjVtIrGIZOqTgCdc39p-QBQzndunp5tE3:sandbox'
 
 export function search(req, params) {
   return new Promise((resolve, reject) => {
-    console.log(req.query);
     request.get(`https://sandbox.feedly.com/v3/search/feeds`)
         .query(req.query)
         .set('Authorization', 'OAuth '+ access_token)

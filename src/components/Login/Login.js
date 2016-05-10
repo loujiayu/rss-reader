@@ -51,8 +51,8 @@ export default class Login extends Component {
   }
   handleFlipper = (event) => {
     var flipper = ReactDom.findDOMNode(this)
-    this.state.needRegister ? flipper.setAttribute('style', 'transform: rotateY(0deg)') :
-                              flipper.setAttribute('style', 'transform: rotateY(180deg)')
+    this.state.needRegister ? flipper.setAttribute('style', 'transform: rotateY(180deg)') :
+                              flipper.setAttribute('style', 'transform: rotateY(0deg)')
     this.state.needRegister = !this.state.needRegister
 
     // var identialStyle = this.state.passwordIdential ? styles.passwordError : styles.notShow
@@ -70,22 +70,24 @@ export default class Login extends Component {
     return (
       <div className={`${shake} ${styles.flipper} ${styles.bounceIn}`}>
         <div className={styles.login}>
-          {/*<TouchRipple/>*/}
+
           <form method="POST" className={styles.dialogForm} onSubmit={this.handleLogin}>
             <div className={styles.dialogHeader}>
               <h3>Login</h3>
             </div>
-            <div className={styles.dialogInput + ' form-group'}>
-              <input type="text" className="form-control" ref="loginUsername"
+            <div className={styles.dialogInput}>
+              <input type="text" ref="loginUsername" className={styles.input}
                      autofocus placeholder="user name"/>
             </div>
-            <div className={styles.dialogInput+ " form-group"}>
-              <input type="password" ref="loginPassword" className="form-control"
+            <div className={styles.dialogInput}>
+              <input type="password" ref="loginPassword" className={styles.input}
                      placeholder="password" />
                    {errorMsg && <span className={styles.errorMsg}>{loginError.message}</span>}
             </div>
             <div className={styles.continue}>
-              <button type="submit" className="btn btn-default btn-block btn-lg">CONTUNUE</button>
+              <button type="submit">
+                CONTUNUE
+              </button>
             </div>
             <div className={styles.switch} onClick={this.flipper}><em onClick={this.handleFlipper}>new account</em></div>
           </form>
@@ -96,19 +98,19 @@ export default class Login extends Component {
               <h3>Register</h3>
             </div>}
             {!passwordIdential && <div className={styles.passwordError}>The passwords don't match</div>}
-            <div className={styles.dialogInput+ " form-group"}>
-              <input type="text" ref="reUsername" className="form-control"
+            <div className={styles.dialogInput}>
+              <input type="text" ref="reUsername" className={styles.input}
                     autofocus placeholder="user name"/>
             </div>
-            <div className={styles.dialogInput+ " form-group"}>
-              <input type="password" ref="rePassword" className="form-control"  placeholder="password"/>
+            <div className={styles.dialogInput}>
+              <input type="password" ref="rePassword" className={styles.input}  placeholder="password"/>
             </div>
-            <div className={styles.dialogInput+ " form-group"}>
-              <input type="password" ref="reCnfPassword" onBlur={this.checkPassword} className="form-control" placeholder="confirm password"/>
+            <div className={styles.dialogInput}>
+              <input type="password" ref="reCnfPassword" onBlur={this.checkPassword} className={styles.input} placeholder="confirm password"/>
               {regMsg && <span className={styles.errorMsg}>{regError.message}</span>}
             </div>
             <div className={styles.continue}>
-              <button type="submit" className="btn btn-default btn-block btn-lg">CONTUNUE</button>
+              <button type="submit">CONTUNUE</button>
             </div>
             <div className={styles.switch}>return to <em onClick={this.handleFlipper}>login page</em></div>
           </form>

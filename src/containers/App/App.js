@@ -50,19 +50,14 @@ export default class App extends Component {
     const {user} = this.props
     var {show} = this.state
 
-    // console.log(loaded);
     return (
       <div className={styles.appWrapper}>
-        {!user && <div className={styles.frame}>
-          <div className={styles.navBar}>
-            <div className={styles.navHeader}>
-              <h3>Home</h3>
-            </div>
-            <div className={styles.navItem}>
-              <button className="btn btn-default" onClick={this.handleLogin}></button>
-            </div>
+        {!user &&
+        <div className={styles.navBar}>
+          <div className={styles.navHeader}>
+            <h3>Home</h3>
           </div>
-        </div>}
+        </div> }
         {show && <Login />}
         <div className={styles.appContent}>
           {this.props.children}

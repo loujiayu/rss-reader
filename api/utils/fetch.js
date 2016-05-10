@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Feed = mongoose.model('Feed');
 
-const access_token = 'AxnLXHDAkhHJ2L8e-7m0CqhXpmQUJOs8wK5a-WV33OVu4xUIKCv34VrUDeXFvh_o3s-sEyayOnqvZH_zGCsNpF_FojLLSkUJsVt55KQfJleIBd4bZjF4wRBvdmgyfF-vSe2Cs1gkw2aZXJKKxWO4oWRt16R90zuF3SxCLskYnX_FYRmIKRGYtxmrt0KfzjiAxlAa3tx7trcvVwRI_PfZMP3mrcQGYaBA'
+const access_token = 'A3q8IovwlwdBHz413omUSTLM7yrSpRqKkSSHufiJsvveBgeno1j978QlnBAkhuKFySyFP8TwB-KLKTcRIS7g599-rxkE8uZxVY2PCHMierorbFLWwps-GpisG21-eAdP1YKYd7j97rcRGYklNxqX76_MwnAjrlxQjZ79zv9kIo_CVo-65Po8ld8PeZdbklItjVtIrGIZOqTgCdc39p-QBQzndunp5tE3:sandbox'
 // import {stream} from '../actions/feed'
 
 var continuation = ''
@@ -21,17 +21,13 @@ async function presave(contents, name) {
   try {
     for(let i=0;i<contents.length;++i) {
       item = contents[i]
-      // console.log(item);
       var data = await Feed.findOne({sId: item.id, nm: name})
       console.log(`presave find data ${data}`);
       if(!data) {
-        // console.log(data);
         item.summary.content = item.summary.content.replace(/<h\d>.*?<\/h\d>/, '')
         var id = item.id.split('=')[1].replace(/\_|\:/g,'')
         cts.push({con: item.summary.content, pub: item.published, _id: id, tt: item.title, oId: item.originId})
         feeds.push({nm:name, pub: item.published, rd: false, st: false, sId: id, fId: item.origin.streamId,fnm: item.origin.title})
-        // results.push({con: item.summary.content, pub: item.published, tt: item.title,
-        //   oId: item.originId, rd: false, st: false, sId: id, fId: item.origin.streamId,fnm: item.origin.title})
       }
     }
   } catch (err) {
@@ -72,7 +68,6 @@ export async function getNewFeeds(feedId, name) {
       console.log(newFeed.fd);
       fd = fd.concat(newFeed.fd)
       cts = cts.concat(newFeed.cts)
-      // block = block.concat(newFeed)
       if(newFeed.fd.length !== 10) {
         break
       }

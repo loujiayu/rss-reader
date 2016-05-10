@@ -13,6 +13,7 @@ function dataInsert(block) {
       if(!doc) {
         Content.create(item)
       }
+      
     })
   })
 }
@@ -23,14 +24,11 @@ export async function subscribe(req) {
   var icon = `https://www.google.com/s2/favicons?domain=${website}&alt=feed`
   try {
     var newFeeds = await getNewFeeds(feedId, name)
-    console.log(newFeeds);
-    console.log(`newFeeds fd length is ${newFeeds.fd.length}`);
     if(newFeeds.fd.length === 0) {
       Feed.create({nm: name, fId: feedId, fnm: title})
     } else {
       User.update({nm: name}, {$push: {fs:{f:title,ct: newFeeds.fd.length, fr: feedId, ic:icon}}},(err, fb) => {
         console.log(err)
-        console.log(fb)
       })
       dataInsert(newFeeds)
     }
@@ -45,7 +43,6 @@ export async function refresh(req) {
   const {name} = req.query
   var results = await feedsRefresh(name)
   const {feeds, ct} = results
-  console.log(ct);
   for(let [key, val] of Object.entries(ct)){
     await User.update({nm:name, "fs.f":key}, {$inc:{"fs.$.ct":val}}).exec()
   }
@@ -71,7 +68,6 @@ export async function mark(req) {
   const {index, name} = req.query
   var doc = await Feed.findOne({sId: index, nm:name}).exec()
   doc.rd = true
-  console.log(doc.fnm);
   doc.save()
   await User.update({nm:doc.nm, "fs.f":doc.fnm}, {$inc:{"fs.$.ct":-1}}).exec()
   var profile = await User.findOne({nm:name}).exec()
@@ -82,7 +78,6 @@ export function feedlist(req) {
   const {name} = req.query
   return new Promise((resolve, reject) => {
     User.findOne({nm:name}, (err, profile) => {
-      console.log(profile)
       resolve(profile.fs)
     })
   })
@@ -97,7 +92,6 @@ export async function feedcontent(req) {
     article = await Content.findOne({_id: item.sId}).exec()
     results.push(Object.assign({}, article._doc, {rd: item.rd, st: item.st, fId: item.fId, fnm:item.fnm}))
   }
-  // console.log(results);
   return results
 }
 

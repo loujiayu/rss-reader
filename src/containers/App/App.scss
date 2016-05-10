@@ -3,19 +3,17 @@
   flex-direction: column;
   width: 100%;
   height: 100vh;
-  .frame {
-    .navBar {
-      width: 100%;
-      // height: 4em;
-      display: flex;
-      justify-content: space-between;
-      padding: 1em;
-      align-items: center;
-      align-content: center;
-      .navHeader {
-      }
-      .navItem {
-      }
+  .navBar {
+    background-color: rgb(64, 61, 74);
+    width: 100%;
+    height: 4em;
+    display: flex;
+    justify-content: flex-start;
+    padding: 1em 0;
+    align-items: center;
+    align-content: center;
+    .navHeader {
+
     }
   }
   .appContent {
@@ -26,10 +24,14 @@
     display: none;
   }
 }
+
 body {
   -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
   font-family: "Roboto";
+}
+h3 {
+  margin: 0;
 }
 
 // animate ...

@@ -2,7 +2,7 @@ import React from 'react'
 import {IndexRoute, Route} from 'react-router';
 import { isLoaded as isAuthLoaded, load as loadAuth } from 'redux/modules/auth'
 import {
-    New,
+    App,
     Center,
     Home
   } from 'containers'
@@ -29,7 +29,7 @@ export default (store) => {
    * Please keep routes in alphabetical order
    */
   return (
-    <Route path="/" component={New}>
+    <Route path="/" component={App}>
       <IndexRoute component={Login}/>
       <Route onEnter={requireLogin}>
         <Route path="loginSuccess" component={Center}/>
