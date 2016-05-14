@@ -1,10 +1,12 @@
 const SELECTED = 'SELECTED'
 const CHANGESTATE = 'CHANGESTATE'
 const CHANGEMODE = 'CHANGEMODE'
-
+const LOGINPANEL = 'LOGINPANEL'
+const LOGINPANELCLOSED = 'LOGINPANELCLOSED'
 const initialState = {
   status: 'unread',
-  mode: false
+  mode: false,
+  show: true
 }
 
 export default function reducer(state = initialState, action = {}) {
@@ -18,6 +20,18 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         mode: !state.mode
+      }
+    }
+    case LOGINPANEL: {
+      return {
+        ...state,
+        show: true
+      }
+    }
+    case LOGINPANELCLOSED: {
+      return {
+        ...state,
+        show: false
       }
     }
     default:
@@ -35,5 +49,17 @@ export function changeState(s) {
 export function changeMode() {
   return {
     type: CHANGEMODE
+  }
+}
+
+export function loginPanel() {
+  return {
+    type: LOGINPANEL
+  }
+}
+
+export function closeLogin() {
+  return {
+    type: LOGINPANELCLOSED
   }
 }
