@@ -103,6 +103,7 @@ class LoginInline extends Component {
           <EventListener
             target="window"
             onClick={this.clickaway}
+            capture={true}
           />
         }
         <ReactTransitionGroup>
@@ -159,7 +160,6 @@ class LoginInline extends Component {
               </div>
             </TransitionItem>
           }
-
         </ReactTransitionGroup>
       </div>
     )

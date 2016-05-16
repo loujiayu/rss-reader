@@ -6,7 +6,7 @@ const LOGINPANELCLOSED = 'LOGINPANELCLOSED'
 const initialState = {
   status: 'unread',
   mode: false,
-  show: true
+  show: false
 }
 
 export default function reducer(state = initialState, action = {}) {

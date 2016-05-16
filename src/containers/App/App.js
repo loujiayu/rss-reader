@@ -55,7 +55,7 @@ export default class App extends Component {
         {!user &&
         <div className={styles.navBar}>
           <div className={styles.navHeader}>
-            <h3>Home</h3>
+            {/*<h3>Home</h3>*/}
           </div>
         </div> }
         {show && <Login />}

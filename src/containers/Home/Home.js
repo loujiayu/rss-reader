@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loginPanel } from 'redux/modules/stat'
+import { loginPanel, closeLogin} from 'redux/modules/stat'
+import {Login} from 'components'
 
-@connect(state => ({}), {loginPanel})
+@connect(state => ({
+  show: state.stat.show
+}), {loginPanel, closeLogin})
 export default class Home extends Component {
-  constructor() {
-    super()
-    this.state = {
-      show: false
-    }
-  }
   handleLogin = () => {
-    loginPanel()
+    this.props.loginPanel()
   }
   render() {
     const styles = require('./Home.scss')
@@ -22,8 +19,9 @@ export default class Home extends Component {
           <div>
             simple RSS reader
           </div>
-          <button className={styles.login} onClick={this.handleLogin}>LOGIN</button>
+          <button className={styles.login} onClick={this.handleLogin}>Get started</button>
         </div>
+        <Login />
       </div>
     )
   }
