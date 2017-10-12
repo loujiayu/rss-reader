@@ -2,7 +2,7 @@
   "name": "rss-reader",
   "description": "rss reader",
   "license": "MIT",
-  "main": "bin/server.js",
+  "main": "bin/serverii.js",
   "scripts": {
     "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
     "start-prod": "better-npm-run start-prod",
